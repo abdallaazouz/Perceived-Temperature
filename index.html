@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب الحرارة المحسوسة للدواجن</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>حساب الحرارة المحسوسة للدواجن</h1>
+        <label for="T">درجة الحرارة الفعلية (T):</label>
+        <input type="number" id="T" placeholder="أدخل درجة الحرارة الفعلية">
+        <label for="RH">الرطوبة النسبية (RH):</label>
+        <input type="number" id="RH" placeholder="أدخل الرطوبة النسبية">
+        <label for="V">سرعة الهواء (V):</label>
+        <input type="number" id="V" placeholder="أدخل سرعة الهواء">
+        <button onclick="calculate()">حساب النتيجة</button>
+        <div class="result" id="result"></div>
+    </div>
+    <footer>
+        <p>تحياتي م.عبدالله عزوز</p>
+        <p>0201119935714</p>
+    </footer>
+    <script>
+        function calculate() {
+            const T = parseFloat(document.getElementById('T').value);
+            const RH = parseFloat(document.getElementById('RH').value);
+            const V = parseFloat(document.getElementById('V').value);
+            const C1 = 5.42;
+            const C2 = 0.05;
+            const a = 0.64;
+
+            const perceivedTemperature = (T - ((Math.pow(V, a)) * C1) + (RH * C2));
+            let emoji = '';
+
+            if (perceivedTemperature < 20) {
+                emoji = '❄️ ساقع';
+            } else if (perceivedTemperature >= 20 && perceivedTemperature <= 28) {
+                emoji = '😊 سعيد';
+            } else {
+                emoji = '🔥 حار';
+            }
+
+            document.getElementById('result').innerHTML = `الحرارة المحسوسة: ${perceivedTemperature.toFixed(2)}°C ${emoji}`;
+        }
+    </script>
+</body>
+</html>
